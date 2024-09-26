@@ -17,12 +17,11 @@ public class Vehicle {
     private int id;
     private String brand;
     private String model;
-    private LocalDate yearOfManufacture;
+    private String yearOfManufacture;
 
     public Vehicle() {}
 
-    public Vehicle(int id, String brand, String model, LocalDate yearOfManufacture) {
-        this.id = id;
+    public Vehicle(String brand, String model, String yearOfManufacture) {
         this.brand = brand;
         this.model = model;
         this.yearOfManufacture = yearOfManufacture;
@@ -46,11 +45,11 @@ public class Vehicle {
 
     public void setModel(String model) { this.model = model; }
 
-    public LocalDate getYearOfManufacture() {
+    public String getYearOfManufacture() {
         return yearOfManufacture;
     }
 
-    public void setYearOfManufacture(LocalDate yearOfManufacture) {
+    public void setYearOfManufacture(String yearOfManufacture) {
         this.yearOfManufacture = yearOfManufacture;
     }
 }
