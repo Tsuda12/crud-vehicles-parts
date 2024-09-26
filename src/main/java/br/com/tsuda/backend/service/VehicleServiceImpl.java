@@ -38,4 +38,13 @@ public class VehicleServiceImpl implements VehicleService{
 
         return VehicleConverter.toVehicleResponseDto(vehicle);
     }
+
+    @Override
+    public VehicleResponseDto update(int id, VehicleRequestDto request) {
+        Vehicle vehicle = vehicleRepository.findById(id).get();
+
+        Vehicle updatedVehicle = vehicleRepository.save(VehicleConverter.toUpdatedVehicle(vehicle, request));
+
+        return VehicleConverter.toVehicleResponseDto(updatedVehicle);
+    }
 }

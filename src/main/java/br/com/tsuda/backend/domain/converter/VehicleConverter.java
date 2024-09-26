@@ -24,4 +24,12 @@ public class VehicleConverter {
                 entity.getYearOfManufacture()
         );
     }
+
+    public static Vehicle toUpdatedVehicle(Vehicle entity, VehicleRequestDto request) {
+        entity.setBrand(request.brand());
+        entity.setModel(request.model());
+        entity.setYearOfManufacture(request.yearOfManufacture());
+
+        return entity;
+    }
 }

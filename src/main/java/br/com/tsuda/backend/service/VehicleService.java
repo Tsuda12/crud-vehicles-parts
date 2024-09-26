@@ -11,4 +11,6 @@ public interface VehicleService {
     List<VehicleResponseDto> getAll();
 
     VehicleResponseDto getById(int id);
+
+    VehicleResponseDto update(int id, VehicleRequestDto request);
 }
