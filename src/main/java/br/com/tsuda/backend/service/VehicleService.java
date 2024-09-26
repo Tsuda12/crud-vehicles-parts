@@ -9,4 +9,6 @@ public interface VehicleService {
     VehicleResponseDto create(VehicleRequestDto request);
 
     List<VehicleResponseDto> getAll();
+
+    VehicleResponseDto getById(int id);
 }

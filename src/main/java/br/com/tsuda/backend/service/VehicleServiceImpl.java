@@ -31,4 +31,11 @@ public class VehicleServiceImpl implements VehicleService{
 
         return vehicles.stream().map(VehicleConverter::toVehicleResponseDto).toList();
     }
+
+    @Override
+    public VehicleResponseDto getById(int id) {
+        Vehicle vehicle = vehicleRepository.findById(id).get();
+
+        return VehicleConverter.toVehicleResponseDto(vehicle);
+    }
 }
