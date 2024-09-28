@@ -2,10 +2,12 @@ package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.domain.converter.VehicleConverter;
 import br.com.tsuda.backend.domain.dto.request.VehicleRequestDto;
+import br.com.tsuda.backend.domain.dto.request.VehicleUpdateRequestDto;
 import br.com.tsuda.backend.domain.dto.response.VehicleResponseDto;
 import br.com.tsuda.backend.domain.entity.Vehicle;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
 import java.util.List;
@@ -49,8 +51,10 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public VehicleResponseDto update(int id, VehicleRequestDto request) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
+    @Transactional
+    public VehicleResponseDto update(int id, VehicleUpdateRequestDto request) {
+        Vehicle vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle with id %d not found!".formatted(id)));
 
         Vehicle updatedVehicle = vehicleRepository.save(VehicleConverter.toUpdatedVehicle(vehicle, request));
 

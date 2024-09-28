@@ -1,6 +1,7 @@
 package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.domain.dto.request.VehicleRequestDto;
+import br.com.tsuda.backend.domain.dto.request.VehicleUpdateRequestDto;
 import br.com.tsuda.backend.domain.dto.response.VehicleResponseDto;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface VehicleService {
 
     VehicleResponseDto getById(int id);
 
-    VehicleResponseDto update(int id, VehicleRequestDto request);
+    VehicleResponseDto update(int id, VehicleUpdateRequestDto request);
 
     void delete(int id);
 }
