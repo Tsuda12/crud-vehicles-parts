@@ -6,6 +6,7 @@ import br.com.tsuda.backend.domain.dto.response.VehicleResponseDto;
 import br.com.tsuda.backend.domain.entity.Vehicle;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,10 @@ public class VehicleServiceImpl implements VehicleService{
     @Override
     public List<VehicleResponseDto> getAll() {
         List<Vehicle> vehicles = vehicleRepository.findAll();
+
+        if(vehicles.isEmpty()) {
+            throw new NotFoundException("No vehicle found!");
+        }
 
         return vehicles.stream().map(VehicleConverter::toVehicleResponseDto).toList();
     }
