@@ -35,12 +35,15 @@ public class VehicleServiceImpl implements VehicleService{
             throw new NotFoundException("No vehicle found!");
         }
 
-        return vehicles.stream().map(VehicleConverter::toVehicleResponseDto).toList();
+        return vehicles.stream()
+                .map(VehicleConverter::toVehicleResponseDto)
+                .toList();
     }
 
     @Override
     public VehicleResponseDto getById(int id) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
+        Vehicle vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle with id %d not found!".formatted(id)));
 
         return VehicleConverter.toVehicleResponseDto(vehicle);
     }
