@@ -13,4 +13,6 @@ public interface VehicleService {
     VehicleResponseDto getById(int id);
 
     VehicleResponseDto update(int id, VehicleRequestDto request);
+
+    void delete(int id);
 }

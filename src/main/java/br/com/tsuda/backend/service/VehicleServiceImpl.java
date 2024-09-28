@@ -8,6 +8,7 @@ import br.com.tsuda.backend.domain.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleServiceImpl implements VehicleService{
@@ -46,5 +47,12 @@ public class VehicleServiceImpl implements VehicleService{
         Vehicle updatedVehicle = vehicleRepository.save(VehicleConverter.toUpdatedVehicle(vehicle, request));
 
         return VehicleConverter.toVehicleResponseDto(updatedVehicle);
+    }
+
+    @Override
+    public void delete(int id) {
+        Vehicle vehicle = vehicleRepository.findById(id).get();
+
+        vehicleRepository.deleteById(id);
     }
 }
