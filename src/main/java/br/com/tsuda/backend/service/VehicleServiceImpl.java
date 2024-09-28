@@ -59,7 +59,8 @@ public class VehicleServiceImpl implements VehicleService{
 
     @Override
     public void delete(int id) {
-        Vehicle vehicle = vehicleRepository.findById(id).get();
+        Vehicle vehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Vehicle with id %d not found!".formatted(id)));
 
         vehicleRepository.deleteById(id);
     }
