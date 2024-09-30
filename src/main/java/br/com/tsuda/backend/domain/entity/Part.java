@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.util.List;
+
 @Entity
 @Table(name = "part")
 public class Part {
@@ -28,6 +29,10 @@ public class Part {
         this.brand = brand;
         this.model = model;
         this.vehicles = vehicles;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getPartNumber() {
