@@ -4,9 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "vehicle")
@@ -18,6 +19,8 @@ public class Vehicle {
     private String brand;
     private String model;
     private String yearOfManufacture;
+    @ManyToMany(mappedBy = "vehicles")
+    private List<Part> parts;
 
     public Vehicle() {}
 
@@ -43,7 +46,9 @@ public class Vehicle {
         return model;
     }
 
-    public void setModel(String model) { this.model = model; }
+    public void setModel(String model) {
+        this.model = model;
+    }
 
     public String getYearOfManufacture() {
         return yearOfManufacture;

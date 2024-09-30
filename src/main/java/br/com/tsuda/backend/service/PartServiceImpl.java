@@ -34,4 +34,17 @@ public class PartServiceImpl implements PartService{
 
         return PartConverter.toPartResponseDto(partRepository.save(part));
     }
+
+    @Override
+    public List<PartResponseDto> getAll() {
+        List<Part> parts = partRepository.findAll();
+
+        if(parts.isEmpty()) {
+            throw new NotFoundException("No parts found!");
+        }
+
+        return parts.stream()
+                .map(PartConverter::toPartResponseDto)
+                .toList();
+    }
 }
