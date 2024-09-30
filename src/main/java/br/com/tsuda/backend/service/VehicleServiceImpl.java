@@ -1,9 +1,9 @@
 package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.domain.converter.VehicleConverter;
-import br.com.tsuda.backend.domain.dto.request.VehicleRequestDto;
-import br.com.tsuda.backend.domain.dto.request.VehicleUpdateRequestDto;
-import br.com.tsuda.backend.domain.dto.response.VehicleResponseDto;
+import br.com.tsuda.backend.controller.dto.request.VehicleRequestDto;
+import br.com.tsuda.backend.controller.dto.request.VehicleUpdateRequestDto;
+import br.com.tsuda.backend.controller.dto.response.VehicleResponseDto;
 import br.com.tsuda.backend.domain.entity.Vehicle;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.webjars.NotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class VehicleServiceImpl implements VehicleService{
