@@ -1,8 +1,8 @@
 package br.com.tsuda.backend.controller;
 
-import br.com.tsuda.backend.controller.dto.request.VehicleRequestDto;
-import br.com.tsuda.backend.controller.dto.request.VehicleUpdateRequestDto;
-import br.com.tsuda.backend.controller.dto.response.VehicleResponseDto;
+import br.com.tsuda.backend.domain.dto.request.VehicleRequestDto;
+import br.com.tsuda.backend.domain.dto.request.VehicleUpdateRequestDto;
+import br.com.tsuda.backend.domain.dto.response.VehicleResponseDto;
 import br.com.tsuda.backend.service.VehicleService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;

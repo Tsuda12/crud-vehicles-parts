@@ -1,4 +1,4 @@
-package br.com.tsuda.backend.controller.dto.request;
+package br.com.tsuda.backend.domain.dto.request;
 
 public record VehicleUpdateRequestDto(
         String brand,
