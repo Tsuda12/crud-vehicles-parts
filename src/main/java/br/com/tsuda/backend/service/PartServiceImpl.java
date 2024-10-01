@@ -1,6 +1,7 @@
 package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.controller.dto.request.PartRequestDto;
+import br.com.tsuda.backend.controller.dto.request.PartUpdateRequestDto;
 import br.com.tsuda.backend.controller.dto.response.PartResponseDto;
 import br.com.tsuda.backend.domain.converter.PartConverter;
 import br.com.tsuda.backend.domain.entity.Part;
@@ -46,5 +47,26 @@ public class PartServiceImpl implements PartService{
         return parts.stream()
                 .map(PartConverter::toPartResponseDto)
                 .toList();
+    }
+
+    @Override
+    public PartResponseDto getById(int id) {
+        Part part = partRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Part with id %d not found!".formatted(id)));
+
+        return PartConverter.toPartResponseDto(part);
+    }
+
+    @Override
+    public PartResponseDto update(int id, PartUpdateRequestDto request) {
+        return null;
+    }
+
+    @Override
+    public void delete(int id) {
+        Part part = partRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Part with id %d not found!".formatted(id)));
+
+        partRepository.delete(part);
     }
 }

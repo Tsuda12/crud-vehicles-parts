@@ -5,11 +5,7 @@ import br.com.tsuda.backend.controller.dto.response.PartResponseDto;
 import br.com.tsuda.backend.service.PartService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +29,17 @@ public class PartController {
     @GetMapping
     public List<PartResponseDto> getAll() {
         return partService.getAll();
+    }
+
+    @Operation(summary = "Get part by id")
+    @GetMapping("/{id}")
+    public PartResponseDto getById(@PathVariable int id) {
+        return partService.getById(id);
+    }
+
+    @Operation(summary = "Delete part")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        partService.delete(id);
     }
 }
