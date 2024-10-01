@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PartServiceImpl implements PartService{
@@ -59,7 +60,17 @@ public class PartServiceImpl implements PartService{
 
     @Override
     public PartResponseDto update(int id, PartUpdateRequestDto request) {
-        return null;
+        Part part = partRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Part with id %d not found!".formatted(id)));
+
+        List<Vehicle> vehicles = request.vehiclesIds().stream()
+                .map(v -> vehicleRepository.findById(v)
+                        .orElseThrow(() -> new NotFoundException("Vehicle with id %d not found!".formatted(v))))
+                .collect(Collectors.toList());
+
+        Part updatedPart = partRepository.save(PartConverter.toUpdatedPart(part, request, vehicles));
+
+        return PartConverter.toPartResponseDto(updatedPart);
     }
 
     @Override

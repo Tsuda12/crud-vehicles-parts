@@ -1,6 +1,7 @@
 package br.com.tsuda.backend.controller;
 
 import br.com.tsuda.backend.controller.dto.request.PartRequestDto;
+import br.com.tsuda.backend.controller.dto.request.PartUpdateRequestDto;
 import br.com.tsuda.backend.controller.dto.response.PartResponseDto;
 import br.com.tsuda.backend.service.PartService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +36,12 @@ public class PartController {
     @GetMapping("/{id}")
     public PartResponseDto getById(@PathVariable int id) {
         return partService.getById(id);
+    }
+
+    @Operation(summary = "Update part")
+    @PutMapping("/{id}")
+    public PartResponseDto update(@PathVariable int id, @RequestBody PartUpdateRequestDto request) {
+        return partService.update(id, request);
     }
 
     @Operation(summary = "Delete part")
