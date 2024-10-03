@@ -3,6 +3,7 @@ package br.com.tsuda.backend.service;
 import br.com.tsuda.backend.controller.dto.request.PartRequestDto;
 import br.com.tsuda.backend.domain.repository.PartRepository;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
+import br.com.tsuda.backend.fixture.part.PartRequestDtoFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,7 +25,6 @@ class PartServiceImplTest {
     @Test
     void create_shouldCreatePart() {
         // Arrange
-        PartRequestDto request = null;
 
         // Act
 
