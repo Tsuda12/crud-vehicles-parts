@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -62,6 +63,24 @@ public class VehicleServiceImplTest {
         assertNotNull(result);
         assertEquals(2, result.size());
         verify(vehicleRepository, times(1)).findAll();
+        verifyNoMoreInteractions(vehicleRepository);
+    }
+
+    @Test
+    void getById_shouldGetVehicleById() {
+        // Arrange
+        int id = 1;
+
+        Vehicle vehicle = VehicleFixture.vehicleEntityCorsa();
+        when(vehicleRepository.findById(id)).thenReturn(Optional.of(vehicle));
+
+        // Act
+        VehicleResponseDto result = vehicleService.getById(id);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(result.model(), vehicle.getModel());
+        verify(vehicleRepository, times(1)).findById(id);
         verifyNoMoreInteractions(vehicleRepository);
     }
 }
