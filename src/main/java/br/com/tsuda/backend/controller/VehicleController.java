@@ -6,6 +6,7 @@ import br.com.tsuda.backend.controller.dto.response.VehicleResponseDto;
 import br.com.tsuda.backend.service.VehicleService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

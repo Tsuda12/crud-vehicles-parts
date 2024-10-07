@@ -13,4 +13,24 @@ public class VehicleFixture {
 
         return vehicle;
     }
+
+    public static Vehicle vehicleEntityCorsa() {
+        Vehicle vehicle = new Vehicle();
+
+        vehicle.setBrand("Chevrolet");
+        vehicle.setModel("Corsa");
+        vehicle.setYearOfManufacture("2010");
+
+        return vehicle;
+    }
+
+    public static Vehicle vehicleEntityVectra() {
+        Vehicle vehicle = new Vehicle();
+
+        vehicle.setBrand("Chevrolet");
+        vehicle.setModel("Vectra");
+        vehicle.setYearOfManufacture("2010");
+
+        return vehicle;
+    }
 }

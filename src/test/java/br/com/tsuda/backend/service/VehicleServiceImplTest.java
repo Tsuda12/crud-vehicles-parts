@@ -11,11 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.web.bind.MethodArgumentNotValidException;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -50,18 +50,18 @@ public class VehicleServiceImplTest {
     }
 
     @Test
-    void create_shouldThrowError() {
+    void getAll_shouldGetAllVehicles() {
         // Arrange
-        VehicleRequestDto request = VehicleRequestDtoFixture.vehicleRequestBlank();
-
-        Vehicle vehicle = VehicleFixture.vehicleEntity(request.brand(), request.model(), request.yearOfManufacture());
-        when(vehicleRepository.save(any(Vehicle.class))).thenReturn(vehicle);
+        List<Vehicle> vehicles = List.of(VehicleFixture.vehicleEntityCorsa(), VehicleFixture.vehicleEntityVectra());
+        when(vehicleRepository.findAll()).thenReturn(vehicles);
 
         // Act
-        MethodArgumentNotValidException exception = assertThrows(MethodArgumentNotValidException.class,
-                () -> vehicleService.create(request));
+        List<VehicleResponseDto> result = vehicleService.getAll();
 
         // Assert
-        assertNotNull(exception);
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(vehicleRepository, times(1)).findAll();
+        verifyNoMoreInteractions(vehicleRepository);
     }
 }

@@ -3,6 +3,7 @@ package br.com.tsuda.backend.service;
 import br.com.tsuda.backend.controller.dto.request.VehicleRequestDto;
 import br.com.tsuda.backend.controller.dto.request.VehicleUpdateRequestDto;
 import br.com.tsuda.backend.controller.dto.response.VehicleResponseDto;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.List;
 
