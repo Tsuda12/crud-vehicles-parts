@@ -20,6 +20,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -108,5 +109,19 @@ public class VehicleServiceImplTest {
         verify(vehicleRepository, times(1)).findById(id);
         verify(vehicleRepository, times(1)).save(any(Vehicle.class));
         verifyNoMoreInteractions(vehicleRepository);
+    }
+
+    @Test
+    void delete_shouldDeleteVehicle() {
+        // Arrange
+        int id = 1;
+
+        Vehicle vehicle = VehicleFixture.vehicleEntityCorsa();
+        when(vehicleRepository.findById(id)).thenReturn(Optional.of(vehicle));
+
+        doNothing().when(vehicleRepository).delete(vehicle);
+
+        // Act
+        vehicleService.delete(id);
     }
 }

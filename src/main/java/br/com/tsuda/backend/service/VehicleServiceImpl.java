@@ -65,6 +65,6 @@ public class VehicleServiceImpl implements VehicleService{
         Vehicle vehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Vehicle with id %d not found!".formatted(id)));
 
-        vehicleRepository.deleteById(vehicle.getId());
+        vehicleRepository.delete(vehicle);
     }
 }
