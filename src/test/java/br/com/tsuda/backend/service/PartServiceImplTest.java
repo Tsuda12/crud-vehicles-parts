@@ -1,16 +1,32 @@
 package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.controller.dto.request.PartRequestDto;
+import br.com.tsuda.backend.controller.dto.response.PartResponseDto;
+import br.com.tsuda.backend.domain.entity.Part;
+import br.com.tsuda.backend.domain.entity.Vehicle;
 import br.com.tsuda.backend.domain.repository.PartRepository;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
+import br.com.tsuda.backend.fixture.part.PartFixture;
 import br.com.tsuda.backend.fixture.part.PartRequestDtoFixture;
+import br.com.tsuda.backend.fixture.vehicle.VehicleFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PartServiceImplTest {
@@ -25,9 +41,21 @@ class PartServiceImplTest {
     @Test
     void create_shouldCreatePart() {
         // Arrange
+        PartRequestDto request = PartRequestDtoFixture.partRequest();
+
+        Vehicle vehicle1 = VehicleFixture.vehicleEntityCorsa();
+        when(vehicleRepository.findById(request.vehiclesIds().get(0))).thenReturn(Optional.of(vehicle1));
+
+        Vehicle vehicle2 = VehicleFixture.vehicleEntityVectra();
+        when(vehicleRepository.findById(request.vehiclesIds().get(1))).thenReturn(Optional.of(vehicle2));
+
+        Part part = PartFixture.partEntity(request, vehicle1, vehicle2);
+        when(partRepository.save(any(Part.class))).thenReturn(part);
 
         // Act
+        PartResponseDto result = partService.create(request);
 
         // Assert
+        assertNotNull(result);
     }
 }

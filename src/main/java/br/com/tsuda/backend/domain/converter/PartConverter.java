@@ -7,7 +7,6 @@ import br.com.tsuda.backend.domain.entity.Part;
 import br.com.tsuda.backend.domain.entity.Vehicle;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PartConverter {
 

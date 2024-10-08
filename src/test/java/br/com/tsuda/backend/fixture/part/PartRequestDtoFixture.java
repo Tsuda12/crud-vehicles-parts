@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PartRequestDtoFixture {
 
-    public static PartRequestDto freioAbs() {
+    public static PartRequestDto partRequest() {
         PartRequestDto partRequestDto = new PartRequestDto(
                 "P1",
                 "Bosch",
