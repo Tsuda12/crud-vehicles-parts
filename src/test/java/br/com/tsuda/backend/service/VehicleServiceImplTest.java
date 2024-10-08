@@ -1,11 +1,13 @@
 package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.controller.dto.request.VehicleRequestDto;
+import br.com.tsuda.backend.controller.dto.request.VehicleUpdateRequestDto;
 import br.com.tsuda.backend.controller.dto.response.VehicleResponseDto;
 import br.com.tsuda.backend.domain.entity.Vehicle;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
 import br.com.tsuda.backend.fixture.vehicle.VehicleFixture;
 import br.com.tsuda.backend.fixture.vehicle.VehicleRequestDtoFixture;
+import br.com.tsuda.backend.fixture.vehicle.VehicleUpdateRequestDtoFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -81,6 +83,30 @@ public class VehicleServiceImplTest {
         assertNotNull(result);
         assertEquals(result.model(), vehicle.getModel());
         verify(vehicleRepository, times(1)).findById(id);
+        verifyNoMoreInteractions(vehicleRepository);
+    }
+
+    @Test
+    void update_shouldUpdateVehicle() {
+        // Arrange
+        int id = 1;
+        VehicleUpdateRequestDto request = VehicleUpdateRequestDtoFixture.vehicleEntityUpdated();
+
+        Vehicle vehicle = VehicleFixture.vehicleEntityCorsa();
+        when(vehicleRepository.findById(id)).thenReturn(Optional.of(vehicle));
+
+        Vehicle updatedVehicle = VehicleFixture.vehicleEntityUpdated(request);
+        when(vehicleRepository.save(any(Vehicle.class))).thenReturn(updatedVehicle);
+
+        // Act
+        VehicleResponseDto result = vehicleService.update(id, request);
+
+        // Assert
+        assertEquals(request.brand(), result.brand());
+        assertEquals(request.model(), result.model());
+        assertEquals(request.yearOfManufacture(), result.yearOfManufacture());
+        verify(vehicleRepository, times(1)).findById(id);
+        verify(vehicleRepository, times(1)).save(any(Vehicle.class));
         verifyNoMoreInteractions(vehicleRepository);
     }
 }

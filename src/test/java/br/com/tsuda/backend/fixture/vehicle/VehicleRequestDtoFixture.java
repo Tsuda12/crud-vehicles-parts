@@ -13,14 +13,4 @@ public class VehicleRequestDtoFixture {
 
         return request;
     }
-
-    public static VehicleRequestDto vehicleRequestBlank() {
-        VehicleRequestDto request = new VehicleRequestDto(
-                "",
-                "",
-                ""
-        );
-
-        return request;
-    }
 }
