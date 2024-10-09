@@ -77,4 +77,22 @@ class PartServiceImplTest {
         verify(partRepository, times(1)).findAll();
         verifyNoMoreInteractions(partRepository);
     }
+
+    @Test
+    void getById_shouldGetPartById() {
+        // Arrange
+        int id = 1;
+
+        Part part = PartFixture.partEntityFreio();
+        when(partRepository.findById(id)).thenReturn(Optional.of(part));
+
+        // Act
+        PartResponseDto result = partService.getById(id);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(part.getPartNumber(), result.partNumber());
+        verify(partRepository, times(1)).findById(id);
+        verifyNoMoreInteractions(partRepository);
+    }
 }
