@@ -15,18 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PartServiceImplTest {
@@ -56,6 +49,14 @@ class PartServiceImplTest {
         PartResponseDto result = partService.create(request);
 
         // Assert
-        assertNotNull(result);
+        assertEquals(request.partNumber(), result.partNumber());
+        assertEquals(request.brand(), result.brand());
+        assertEquals(request.model(), result.model());
+        assertEquals(vehicle1.getModel(), result.vehicles().get(0).model());
+        assertEquals(vehicle2.getModel(), result.vehicles().get(1).model());
+        verify(vehicleRepository, times(1)).findById(request.vehiclesIds().get(0));
+        verify(vehicleRepository, times(1)).findById(request.vehiclesIds().get(1));
+        verify(partRepository, times(1)).save(any(Part.class));
+        verifyNoMoreInteractions(vehicleRepository, partRepository);
     }
 }
