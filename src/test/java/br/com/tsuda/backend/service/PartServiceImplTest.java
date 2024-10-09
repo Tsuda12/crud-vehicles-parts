@@ -123,4 +123,18 @@ class PartServiceImplTest {
         verify(partRepository, times(1)).save(any(Part.class));
         verifyNoMoreInteractions(partRepository, vehicleRepository);
     }
+
+    @Test
+    void delete_shouldDeletePart() {
+        // Arrange
+        int id = 1;
+
+        Part part = PartFixture.partEntityFreio();
+        when(partRepository.findById(id)).thenReturn(Optional.of(part));
+
+        doNothing().when(partRepository).delete(part);
+
+        // Act
+        partService.delete(id);
+    }
 }
