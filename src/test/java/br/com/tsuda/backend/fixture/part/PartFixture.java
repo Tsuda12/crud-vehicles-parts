@@ -1,6 +1,7 @@
 package br.com.tsuda.backend.fixture.part;
 
 import br.com.tsuda.backend.controller.dto.request.PartRequestDto;
+import br.com.tsuda.backend.controller.dto.request.PartUpdateRequestDto;
 import br.com.tsuda.backend.domain.entity.Part;
 import br.com.tsuda.backend.domain.entity.Vehicle;
 import br.com.tsuda.backend.fixture.vehicle.VehicleFixture;
@@ -38,6 +39,17 @@ public class PartFixture {
         part.setBrand("Bosch");
         part.setModel("Vela");
         part.setVehicles(List.of(VehicleFixture.vehicleEntityVectra()));
+
+        return part;
+    }
+
+    public static Part partEntityUpdated(PartUpdateRequestDto request, Vehicle vehicle) {
+        Part part = new Part();
+
+        part.setPartNumber(request.partNumber());
+        part.setBrand(request.brand());
+        part.setModel(request.model());
+        part.setVehicles(List.of(vehicle));
 
         return part;
     }

@@ -1,6 +1,7 @@
 package br.com.tsuda.backend.service;
 
 import br.com.tsuda.backend.controller.dto.request.PartRequestDto;
+import br.com.tsuda.backend.controller.dto.request.PartUpdateRequestDto;
 import br.com.tsuda.backend.controller.dto.response.PartResponseDto;
 import br.com.tsuda.backend.domain.entity.Part;
 import br.com.tsuda.backend.domain.entity.Vehicle;
@@ -8,6 +9,7 @@ import br.com.tsuda.backend.domain.repository.PartRepository;
 import br.com.tsuda.backend.domain.repository.VehicleRepository;
 import br.com.tsuda.backend.fixture.part.PartFixture;
 import br.com.tsuda.backend.fixture.part.PartRequestDtoFixture;
+import br.com.tsuda.backend.fixture.part.PartUpdateRequestDtoFixture;
 import br.com.tsuda.backend.fixture.vehicle.VehicleFixture;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -94,5 +96,31 @@ class PartServiceImplTest {
         assertEquals(part.getPartNumber(), result.partNumber());
         verify(partRepository, times(1)).findById(id);
         verifyNoMoreInteractions(partRepository);
+    }
+
+    @Test
+    void update_shouldUpdatePart() {
+        // Arrange
+        int id = 1;
+        PartUpdateRequestDto request = PartUpdateRequestDtoFixture.updateRequest();
+
+        Part part = PartFixture.partEntityFreio();
+        when(partRepository.findById(id)).thenReturn(Optional.of(part));
+
+        Vehicle vehicle = VehicleFixture.vehicleEntityCorsa();
+        when(vehicleRepository.findById(1)).thenReturn(Optional.of(vehicle));
+
+        Part updatedPart = PartFixture.partEntityUpdated(request, vehicle);
+        when(partRepository.save(any(Part.class))).thenReturn(updatedPart);
+
+        // Act
+        PartResponseDto result = partService.update(id, request);
+
+        // Assert
+        assertEquals(request.model(), result.model());
+        verify(partRepository, times(1)).findById(id);
+        verify(vehicleRepository, times(1)).findById(1);
+        verify(partRepository, times(1)).save(any(Part.class));
+        verifyNoMoreInteractions(partRepository, vehicleRepository);
     }
 }
