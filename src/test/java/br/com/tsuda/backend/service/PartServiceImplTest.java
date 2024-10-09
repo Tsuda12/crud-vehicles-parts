@@ -15,9 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -58,5 +60,21 @@ class PartServiceImplTest {
         verify(vehicleRepository, times(1)).findById(request.vehiclesIds().get(1));
         verify(partRepository, times(1)).save(any(Part.class));
         verifyNoMoreInteractions(vehicleRepository, partRepository);
+    }
+
+    @Test
+    void getAll_shouldGetAllParts() {
+        // Arrange
+        List<Part> parts = List.of(PartFixture.partEntityFreio(), PartFixture.partEntityVela());
+        when(partRepository.findAll()).thenReturn(parts);
+
+        // Act
+        List<PartResponseDto> result = partService.getAll();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        verify(partRepository, times(1)).findAll();
+        verifyNoMoreInteractions(partRepository);
     }
 }
